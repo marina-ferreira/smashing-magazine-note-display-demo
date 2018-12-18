@@ -26,6 +26,14 @@ body {
   margin: 0 25px;
 }
 
+.circle {
+  position: relative;
+}
+
+.circle__svg {
+  transform: rotate(-90deg);
+}
+
 .circle__progress {
   fill: none;
   stroke-width: 3;
@@ -33,14 +41,19 @@ body {
   stroke-linecap: round;
 }
 
+.circle__progress--fill {
+  --initialStroke: 0;
+  --transitionDuration: 0;
+  stroke-opacity: 1;
+  stroke-dasharray: var(--initialStroke);
+  stroke-dashoffset: var(--initialStroke);
+  transition: stroke-dashoffset var(--transitionDuration) ease;
+}
+
 .note-display:nth-child(1) .circle__progress { stroke: #AAFF00; }
 .note-display:nth-child(2) .circle__progress { stroke: #FF00AA; }
 .note-display:nth-child(3) .circle__progress { stroke: #AA00FF; }
 .note-display:nth-child(4) .circle__progress { stroke: #00AAFF; }
-
-.circle {
-  position: relative;
-}
 
 .percent {
   width: 100%;
