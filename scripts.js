@@ -3,8 +3,13 @@ const transitionDuration = 900;
 
 displays.forEach(display => {
   let note = parseFloat(display.dataset.note);
+  let [int, dec] = display.dataset.note.split('.');
+  [int, dec] = [Number(int), Number(dec)];
 
   strokeTransition(display, note);
+
+  increaseNumber(display, int, 'int');
+  increaseNumber(display, dec, 'dec');
 });
 
 function strokeTransition(display, note) {
@@ -17,4 +22,18 @@ function strokeTransition(display, note) {
   progress.style.setProperty('--transitionDuration', `${transitionDuration}ms`);
 
   setTimeout(() => progress.style.strokeDashoffset = offset, 100);
+}
+
+function increaseNumber(display, number, className) {
+  let element = display.querySelector(`.percent__${className}`),
+      decPoint = className === 'int' ? '.' : '',
+      interval = transitionDuration / number,
+      counter = 0;
+
+  let increaseInterval = setInterval(() => {
+    if (counter === number) { window.clearInterval(increaseInterval); }
+
+    element.textContent = counter + decPoint;
+    counter++;
+  }, interval);
 }
